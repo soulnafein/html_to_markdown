@@ -51,6 +51,22 @@ module HtmlToMarkdown
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
 
+    def test_bold
+      html = "<strong>bold makes me fatter</strong>"
+
+      markdown = "** bold makes me fatter **"
+
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
+
+    def test_bold_inside_p
+      html = "<p>me p <strong>me strong</strong>me close</p>"
+
+      markdown = "me p ** me strong **me close\n\n"
+
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
+
     def test_just_text
       html = "<div>sometimes we just have text</div>"
       markdown = "sometimes we just have text"
