@@ -19,5 +19,16 @@ module HtmlToMarkdown
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
+
+    def test_that_headers_are_added_in_the_right_order_when_h1_is_after_h2
+      html = "<body><div class='some_div'><div class='more_div'><h2>An header</h2></div></div>" +
+             "<div class='another_div'><h1>Another header</h1></div></body>"
+      markdown = "An header\n" + 
+                 "---------\n\n" +
+                 "Another header\n" +
+                 "==============\n\n"
+
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
   end
 end
