@@ -15,6 +15,8 @@ module HtmlToMarkdown
       	output += "#{node.content}\n"
       	output += "-" * node.content.length
       	output += "\n\n"
+      elsif node.name == "p"
+      	output += "#{node.content}\n\n"
       end
     end
     puts output
