@@ -50,5 +50,12 @@ module HtmlToMarkdown
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
+
+    def test_just_text
+      html = "sometimes we just have text"
+      markdown = "sometimes we just have text"
+
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
   end
 end
