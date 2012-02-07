@@ -36,7 +36,7 @@ module HtmlToMarkdown
     def test_paragraphs_are_converted
       html = "<p>can i haz paragraphs</p>"
 
-      markdown = "can i haz paragraphs"
+      markdown = "can i haz paragraphs\n\n"
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
@@ -45,11 +45,10 @@ module HtmlToMarkdown
       html = "<p>can i haz paragraphs</p>"\
              "<p>yes you can!!</p>"
 
-      markdown = "can i haz paragraphs\n"\
-                 "yes you can!!"
+      markdown = "can i haz paragraphs\n\n"\
+                 "yes you can!!\n\n"
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
-
   end
 end
