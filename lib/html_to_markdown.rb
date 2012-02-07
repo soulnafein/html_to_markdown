@@ -8,17 +8,17 @@ module HtmlToMarkdown
     output = ""
     doc.at_css("body").traverse do |node|
       if node.name == "h1"
-      	output += "#{node.content}\n"
-      	output += "=" * node.content.length
-      	output += "\n\n"
+      	output << "#{node.content}\n"
+      	output << "=" * node.content.length
+      	output << "\n\n"
       elsif node.name == "h2"
-      	output += "#{node.content}\n"
-      	output += "-" * node.content.length
-      	output += "\n\n"
+      	output << "#{node.content}\n"
+      	output << "-" * node.content.length
+      	output << "\n\n"
       elsif node.name == "p"
-      	output += "#{node.content}\n\n"
+      	output << "#{node.content}\n\n"
       elsif node.name == "text"
-      	output += node.content unless ["h1", "h2", "p"].include? node.parent.name
+      	output << node.content unless ["h1", "h2", "p"].include? node.parent.name
       end
     end
     output
