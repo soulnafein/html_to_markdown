@@ -6,13 +6,18 @@ module HtmlToMarkdown
   def self.parse(html_document)
     doc = Nokogiri::HTML(html_document)
     output = ""
-    doc.xpath('//h1').each do |node|
-      output += "#{node.text}\n" + ("=" * node.text.length) + "\n\n"
+    doc.at_css("body").traverse do |node|
+      if node.name == "h1"
+      	output += "#{node.content}\n"
+      	output += "=" * node.content.length
+      	output += "\n\n"
+      elsif node.name == "h2"
+      	output += "#{node.content}\n"
+      	output += "-" * node.content.length
+      	output += "\n\n"
+      end
     end
-    doc.xpath('//h2').each do |node|
-      output += "#{node.text}\n" + ("-" * node.text.length) + "\n\n"
-    end
-
+    puts output
     output
   end
 end
