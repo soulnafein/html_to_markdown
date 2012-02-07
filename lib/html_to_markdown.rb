@@ -17,9 +17,10 @@ module HtmlToMarkdown
       	output += "\n\n"
       elsif node.name == "p"
       	output += "#{node.content}\n\n"
+      elsif node.name == "text"
+      	output += node.content unless ["h1", "h2", "p"].include? node.parent.name
       end
     end
-    puts output
     output
   end
 end
