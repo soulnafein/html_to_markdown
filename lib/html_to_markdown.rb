@@ -5,19 +5,40 @@ module HtmlToMarkdown
   # Your code goes here...
   def self.parse(html_document)
     doc = Nokogiri::HTML(html_document)
-    converters = [HeaderOneConverter.new, HeaderTwoConverter.new, ParagraphConverter.new, TextConverter.new]
-    output = ""
-    doc.at_css("body").traverse do |node|
-      converter = converters.find {|c| c.match?(node)}
-      output << converter.generate_markdown(node) unless converter.nil?
-    end
-    output
+    RootConverter.new.generate_markdown(doc.at_css("body"))
   end
 
   module NodeConverter
+
     def match?(node)
-      puts matched_elements
       matched_elements.include?(node.name)
+    end
+
+    def get_children_text(node)
+      node.children.inject("") {|acc, el| acc << get_converter(el).generate_markdown(el)}
+    end
+
+    def get_converter(node)
+      @@converters ||= [HeaderOneConverter.new, HeaderTwoConverter.new, ParagraphConverter.new, TextConverter.new, StrongConverter.new, NoMatchConverter.new]
+      @@converters.find{|el|el.match?(node)}
+    end
+  end
+
+  class RootConverter
+    include NodeConverter
+    def generate_markdown(node)
+      children_text = get_children_text(node)
+    end
+  end
+
+  class NoMatchConverter
+    include NodeConverter
+    def match?(node)
+      true
+    end
+
+    def generate_markdown(node)
+      get_children_text(node)
     end
   end
 
@@ -28,8 +49,9 @@ module HtmlToMarkdown
     end
 
     def generate_markdown(node)
-      output = "#{node.content}\n"
-      output << "=" * node.content.length
+      children_text = get_children_text(node)
+      output = "#{children_text}\n"
+      output << "=" * children_text.length
       output << "\n\n"
       output
     end
@@ -42,8 +64,9 @@ module HtmlToMarkdown
     end
 
     def generate_markdown(node)
-      output = "#{node.content}\n"
-      output << "-" * node.content.length
+      children_text = get_children_text(node)
+      output = "#{children_text}\n"
+      output << "-" * children_text.length
       output << "\n\n"
       output
     end
@@ -56,7 +79,18 @@ module HtmlToMarkdown
     end
 
     def generate_markdown(node)
-      "#{node.content}\n\n"
+      "#{get_children_text(node)}\n\n"
+    end
+  end
+
+  class StrongConverter
+    include NodeConverter
+    def matched_elements
+      ['strong', 'b']
+    end
+
+    def generate_markdown(node)
+      "** #{get_children_text(node)} **"
     end
   end
 
@@ -68,7 +102,7 @@ module HtmlToMarkdown
 
     def generate_markdown(node)
       output = ''
-      output << node.content unless ["h1", "h2", "p"].include? node.parent.name
+      output << node.content
       output
     end
   end
