@@ -18,10 +18,8 @@ module HtmlToMarkdown
 
     def generate_markdown(node)
       children_text = get_children_text(node)
-      output = "#{children_text}\n"
-      output << @underline_symbol * children_text.length
-      output << "\n\n"
-      output
+      underline = @underline_symbol * children_text.length
+      children_text + "\n" + underline + "\n\n"
     end
   end
 
@@ -34,7 +32,7 @@ module HtmlToMarkdown
     end
 
     def generate_markdown(node)
-      "#{@before}#{get_children_text(node)}#{@after}"
+      @before + get_children_text(node) + @after
     end
   end
 
@@ -42,9 +40,7 @@ module HtmlToMarkdown
     include NodeConverter
 
     def generate_markdown(node)
-      output = ''
-      output << node.content
-      output
+      node.content
     end
   end
 end
