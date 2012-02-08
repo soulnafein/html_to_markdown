@@ -9,59 +9,32 @@ module HtmlToMarkdown
     end
   end
 
-  class NoMatchConverter
+  class HeaderConverter
     include NodeConverter
 
-    def generate_markdown(node)
-      get_children_text(node)
+    def initialize(underline_symbol)
+      @underline_symbol = underline_symbol
     end
-  end
-
-  class HeaderOneConverter
-    include NodeConverter
 
     def generate_markdown(node)
       children_text = get_children_text(node)
       output = "#{children_text}\n"
-      output << "=" * children_text.length
+      output << @underline_symbol * children_text.length
       output << "\n\n"
       output
     end
   end
 
-  class HeaderTwoConverter
+  class NodeWrapper
     include NodeConverter
 
-    def generate_markdown(node)
-      children_text = get_children_text(node)
-      output = "#{children_text}\n"
-      output << "-" * children_text.length
-      output << "\n\n"
-      output
+    def initialize(before, after)
+      @before = before
+      @after = after
     end
-  end
-
-  class ParagraphConverter
-    include NodeConverter
 
     def generate_markdown(node)
-      "#{get_children_text(node)}\n\n"
-    end
-  end
-
-  class StrongConverter
-    include NodeConverter
-
-    def generate_markdown(node)
-      "**#{get_children_text(node)}**"
-    end
-  end
-
-  class EmphasizeConverter
-    include NodeConverter
-
-    def generate_markdown(node)
-      "_#{get_children_text(node)}_"
+      "#{@before}#{get_children_text(node)}#{@after}"
     end
   end
 
