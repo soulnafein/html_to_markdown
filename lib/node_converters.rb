@@ -57,6 +57,14 @@ module HtmlToMarkdown
     end
   end
 
+  class EmphasizeConverter
+    include NodeConverter
+
+    def generate_markdown(node)
+      "_#{get_children_text(node)}_"
+    end
+  end
+
   class TextConverter
     include NodeConverter
 

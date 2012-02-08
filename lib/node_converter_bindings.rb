@@ -7,7 +7,9 @@ module HtmlToMarkdown
 	                 "h2" => HeaderTwoConverter.new,
 	                 "text" => TextConverter.new,
 	                 "p" => ParagraphConverter.new,
-	                 "strong" => StrongConverter.new}
+	                 "strong" => StrongConverter.new,
+	                 "em" => EmphasizeConverter.new,
+	               }
 	
 	@@Converters.default = NoMatchConverter.new
     
