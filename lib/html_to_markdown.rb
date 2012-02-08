@@ -90,7 +90,7 @@ module HtmlToMarkdown
     end
 
     def generate_markdown(node)
-      "** #{get_children_text(node)} **"
+      "**#{get_children_text(node)}**"
     end
   end
 
