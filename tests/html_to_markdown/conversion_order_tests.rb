@@ -27,7 +27,7 @@ module HtmlToMarkdown
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
 
-    def test_that_when_strong_inside_p_is_translated_first_then_wrapped_by_p
+    def test_that_inner_html_is_converted_first
       html = "<p>me p <strong>me strong</strong> me close</p>"
 
       markdown = "me p **me strong** me close\n\n"

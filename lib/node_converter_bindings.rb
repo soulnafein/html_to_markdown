@@ -6,6 +6,7 @@ module HtmlToMarkdown
   	@@Converters = { "h1" => HeaderConverter.new("="),
 	                 "h2" => HeaderConverter.new("-"),
 	                 "text" => TextConverter.new,
+	                 "ul" => ListConverter.new,
 	                 "p" => NodeWrapper.new("", "\n\n"),
 	                 "strong" => NodeWrapper.new("**", "**"),
 	                 "em" => NodeWrapper.new("_", "_"),

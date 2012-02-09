@@ -23,6 +23,13 @@ module HtmlToMarkdown
     end
   end
 
+  class ListConverter
+
+    def generate_markdown(node)
+      node.children.inject("") {|acc, el| acc << "*  " + NodeConverterBindings.get_converter_for(el).generate_markdown(el) + "\n"}
+    end
+  end
+
   class NodeWrapper
     include NodeConverter
 
