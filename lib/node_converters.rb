@@ -23,10 +23,21 @@ module HtmlToMarkdown
     end
   end
 
-  class ListConverter
-
+  class UnorderedListConverter
     def generate_markdown(node)
       node.children.inject("") {|acc, el| acc << "*  " + NodeConverterBindings.get_converter_for(el).generate_markdown(el) + "\n"}
+    end
+  end
+
+  class OrderedListConverter
+    def generate_markdown(node)
+      output = ""
+      count = 1
+      node.children.each do |el|
+        output << "#{count}. " + NodeConverterBindings.get_converter_for(el).generate_markdown(el) + "\n"
+        count += 1
+      end
+      output
     end
   end
 
