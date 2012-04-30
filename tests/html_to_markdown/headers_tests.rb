@@ -28,7 +28,7 @@ module HtmlToMarkdown
 
     def test_just_text
       html = "<div>sometimes we just have text</div>"
-      markdown = "sometimes we just have text"
+      markdown = "sometimes we just have text\n\n"
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end

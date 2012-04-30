@@ -68,7 +68,7 @@ module HtmlToMarkdown
     def generate_markdown(node, references)
       url = node.attributes["href"].value
       name = references.add(url)
-      "[" + get_children_text(node, references) + "] [" + name + "]"
+      "[" + get_children_text(node, references) + "][" + name + "]"
     end
   end
 
