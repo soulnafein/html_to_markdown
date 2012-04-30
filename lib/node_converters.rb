@@ -72,6 +72,17 @@ module HtmlToMarkdown
     end
   end
 
+  class ImageWrapper
+    include NodeConverter
+
+    def generate_markdown(node, references)
+      url = node.attributes["src"].value
+      name = references.add(url)
+      title = node.attributes["alt"].nil? ? "image" : node.attributes["alt"].value
+      "[" + title + "][" + name + "]"
+    end
+  end
+
   class TextConverter
     include NodeConverter
 

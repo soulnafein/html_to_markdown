@@ -10,6 +10,7 @@ module HtmlToMarkdown
 	                 "ol" => OrderedListConverter.new,
 	                 "p" => BlockWrapper.new,
 	                 "div" => BlockWrapper.new,
+	                 "img" => ImageWrapper.new,
                    "a" => LinkWrapper.new,
 	                 "strong" => NodeWrapper.new("**", "**"),
 	                 "em" => NodeWrapper.new("_", "_"),
