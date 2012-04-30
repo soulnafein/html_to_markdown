@@ -8,7 +8,8 @@ module HtmlToMarkdown
 	                 "text" => TextConverter.new,
 	                 "ul" => UnorderedListConverter.new,
 	                 "ol" => OrderedListConverter.new,
-	                 "p" => NodeWrapper.new("", "\n\n"),
+	                 "p" => ParagraphWrapper.new,
+                   "a" => LinkWrapper.new,
 	                 "strong" => NodeWrapper.new("**", "**"),
 	                 "em" => NodeWrapper.new("_", "_"),
 	               }
