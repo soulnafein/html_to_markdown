@@ -7,7 +7,8 @@ module HtmlToMarkdown
 
   def self.parse(html_document)
     doc = Nokogiri::HTML(html_document)
-    NodeConverterBindings.get_converter_for(doc.at_css("body")).generate_markdown(doc.at_css("body"), References.new)
+    references = References.new
+    NodeConverterBindings.get_converter_for(doc.at_css("body")).generate_markdown(doc.at_css("body"), references) + references.as_index!
   end
 
 end

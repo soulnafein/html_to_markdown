@@ -54,7 +54,7 @@ module HtmlToMarkdown
     end
   end
 
-  class ParagraphWrapper
+  class BlockWrapper
     include NodeConverter
 
     def generate_markdown(node, references)

@@ -2,6 +2,15 @@ require_relative '../tests_setup.rb'
 
 module HtmlToMarkdown
   class HrefTests < MiniTest::Unit::TestCase
+    def test_hyperlinks_are_supported
+      html = "<div>can i haz <a href='http://test.com/hyperlinks'>links?</a></div>"
+
+      markdown = "can i haz [links?] [hyperlinks]\n" \
+                 "[hyperlinks]: http://test.com/hyperlinks\n\n" 
+
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
+
     def test_href_are_shown_at_the_end_of_the_paragraph
       html = "<p>can i haz <a href='http://test.com/hyperlinks'>links?</a></p>"\
              "<p>yes you can!!</p>"
@@ -35,5 +44,7 @@ module HtmlToMarkdown
 
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
+
+
   end
 end
