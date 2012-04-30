@@ -45,6 +45,11 @@ module HtmlToMarkdown
       assert_equal markdown, HtmlToMarkdown.parse(html)
     end
 
+    def test_anchors_should_stay_as_html
+      html = "<p>ciao <a id='something-important' /></p>"
+      markdown = "ciao <a id=\"something-important\" />\n\n"
 
+      assert_equal markdown, HtmlToMarkdown.parse(html)
+    end
   end
 end

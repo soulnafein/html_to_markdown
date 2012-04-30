@@ -66,6 +66,16 @@ module HtmlToMarkdown
     include NodeConverter
 
     def generate_markdown(node, references)
+      return generate_anchor_text(node) if node.attributes["href"].nil?
+      generate_href_text(node, references)
+    end
+
+    def generate_anchor_text(node)
+      id = node.attributes["id"].value
+      "<a id=\"" + id + "\" />"
+    end
+
+    def generate_href_text(node, references)
       url = node.attributes["href"].value
       name = references.add(url)
       "[" + get_children_text(node, references) + "][" + name + "]"
